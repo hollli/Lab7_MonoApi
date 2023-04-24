@@ -7,25 +7,20 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     private static final String apiUrl = "https://api.monobank.ua/bank/";
-
     private List<CurrencyPojo> postMonoApi;
     private RadioGroup radioGroup;
-
     private final Map<String, Integer> currencyCodes = new HashMap<String, Integer>() {{
         put("XPD", 964);
         put("PLN", 985);
@@ -47,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
         EditText myresult = findViewById(R.id.myresult);
         radioGroup = findViewById(R.id.radioGroup);
         getDataFromApi();
-
         convertButton.setOnClickListener(e -> {
             if (postMonoApi != null) {
                 double amount = Double.parseDouble(dataInput.getText().toString());
@@ -130,7 +124,6 @@ public class MainActivity extends AppCompatActivity {
                         });
                         myThread.start();
                     }
-
                     @Override
                     public void onFailure(@NonNull Call<List<CurrencyPojo>> call, @NonNull Throwable t) {
                         t.printStackTrace();
