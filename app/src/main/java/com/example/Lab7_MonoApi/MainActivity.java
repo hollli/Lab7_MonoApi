@@ -7,12 +7,15 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -44,16 +47,16 @@ public class MainActivity extends AppCompatActivity {
         getDataFromApi();
         convertButton.setOnClickListener(e -> {
             if (postMonoApi != null) {
-                double amount = Double.parseDouble(dataInput.getText().toString());
+                double myData = Double.parseDouble(dataInput.getText().toString());
                 int currencyA = currencyCodes.get(forCurrencyA.getSelectedItem().toString());
                 int currencyB = currencyCodes.get(forCurrencyB.getSelectedItem().toString());
-                 if (currencyA == currencyB) {
+                if (currencyA == currencyB) {
                     textExchangeRates.setText("U cannot convert " + forCurrencyA.getSelectedItem().toString() + " in " + forCurrencyB.getSelectedItem().toString());
                 } else {
                     try {
                         double res = (convert(postMonoApi, 1, String.valueOf(currencyA), String.valueOf(currencyB)));
                         textExchangeRates.setText(new DecimalFormat("#0.00").format(res));
-                        myresult.setText(new DecimalFormat("#0.00").format(res * amount));
+                        myresult.setText(new DecimalFormat("#0.00").format(res * myData));
 
                     } catch (Exception ex) {
                         myresult.setText("༼ つ ◕_◕ ༽つError༼ つ ◕_◕ ༽つ");
@@ -67,36 +70,34 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public Double convert(@NonNull List<CurrencyPojo> currenciesList,
-                          double amount, String fromCurrency, String toCurrency) {
+    public Double convert(@NonNull List<CurrencyPojo> currenciesList, double myData, String fromCurrency, String toCurrency) {
         int checkedRadioButtonId = radioGroup.getCheckedRadioButtonId();
         RadioButton myRadioButton = findViewById(checkedRadioButtonId);
         int checkedIndex = radioGroup.indexOfChild(myRadioButton);
-
         for (CurrencyPojo currency : currenciesList) {
             if (currency.getCurrencyCodeA() == Integer.parseInt(fromCurrency) && currency.getCurrencyCodeB() == Integer.parseInt(toCurrency)) {
                 switch (checkedIndex) {
                     case 0: {
-                        return amount * currency.getRateSell();
+                        return myData * currency.getRateSell();
                     }
                     case 1: {
-                        return amount * currency.getRateBuy();
+                        return myData * currency.getRateBuy();
                     }
                     case 2: {
-                        return amount * currency.getRateCross();
+                        return myData * currency.getRateCross();
                     }
                 }
             }
             if (currency.getCurrencyCodeA() == Integer.parseInt(toCurrency) && currency.getCurrencyCodeB() == Integer.parseInt(fromCurrency)) {
                 switch (checkedIndex) {
                     case 0: {
-                        return amount / currency.getRateSell();
+                        return myData / currency.getRateSell();
                     }
                     case 1: {
-                        return amount / currency.getRateBuy();
+                        return myData / currency.getRateBuy();
                     }
                     case 2: {
-                        return amount / currency.getRateCross();
+                        return myData / currency.getRateCross();
                     }
                 }
             }
@@ -124,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
                         });
                         myThread.start();
                     }
+
                     @Override
                     public void onFailure(@NonNull Call<List<CurrencyPojo>> call, @NonNull Throwable t) {
                         t.printStackTrace();
