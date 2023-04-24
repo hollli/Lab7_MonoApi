@@ -1,0 +1,18 @@
+<resources>
+    <string-array name="convertList">
+        <item>XPD</item>
+        <item>PLN</item>
+        <item>UAH</item>
+        <item>USD</item>
+        <item>EUR</item>
+    </string-array>
+    <string name="app_name">Lab 7 Veretilnyk</string>
+    <string name="inputAmount">Enter the amount:</string>
+    <string name="myResult">Result:</string>
+    <string name="selectCurrency">Choose a currency:</string>
+    <string name="convert">Convert to:</string>
+    <string name="buy">Buy</string>
+    <string name="sell">Sell</string>
+    <string name="nbu">NBU</string>
+    <string name="convertButton">Convert currency</string>
+</resources>
