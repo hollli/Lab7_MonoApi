@@ -1,15 +1,22 @@
-package com.example.Lab7_MonoApi;
+package com.example.Lab7MonoApi;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
@@ -31,12 +38,53 @@ public class MainActivity extends AppCompatActivity {
         put("USD", 840);
         put("EUR", 978);
     }};
+//    FirebaseFirestore firestore;
+    FirebaseAuth auth;
+    Button button;
+    TextView textView;
+    FirebaseUser user;
 
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        firestore = FirebaseFirestore.getInstance();
+//        Map<String,Object> users = new HashMap<>();
+//        users.put("firstName","EASY");
+//        users.put("lasName","TUTO");
+//        users.put("description","Subscribe");
+//        firestore.collection("users").add(users).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//            @Override
+//            public void onSuccess(DocumentReference documentReference) {
+//                Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_LONG).show();
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                Toast.makeText(getApplicationContext(),"Failue",Toast.LENGTH_LONG).show();
+//            }
+//        });
         setContentView(R.layout.activity_main);
+        auth = FirebaseAuth.getInstance();
+        button = findViewById(R.id.logout);
+        textView = findViewById(R.id.user_details);
+        user = auth.getCurrentUser();
+        if(user == null){
+            Intent intent = new Intent(getApplicationContext(),Login.class);
+            startActivity(intent);
+            finish();
+        }else{
+            textView.setText(user.getEmail());
+        }
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getApplicationContext(),Login.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         Button convertButton = findViewById(R.id.convertButton);
         Spinner forCurrencyA = findViewById(R.id.forCurrencyA);
         Spinner forCurrencyB = findViewById(R.id.forCurrencyB);

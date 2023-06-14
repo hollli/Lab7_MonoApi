@@ -15,4 +15,10 @@
     <string name="sell">Sell</string>
     <string name="nbu">NBU</string>
     <string name="convertButton">Convert currency</string>
+    <string name="email">email</string>
+    <string name="password">password</string>
+    <string name="Login">Login</string>
+    <string name="Register">Register</string>
+    <string name="click_to_login">Click to login</string>
+    <string name="logout">logout</string>
 </resources>

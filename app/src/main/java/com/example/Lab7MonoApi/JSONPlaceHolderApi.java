@@ -1,4 +1,4 @@
-package com.example.Lab7_MonoApi;
+package com.example.Lab7MonoApi;
 
 import java.util.List;
 import retrofit2.Call;

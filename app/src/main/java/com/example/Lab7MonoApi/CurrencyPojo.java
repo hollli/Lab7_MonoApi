@@ -1,4 +1,4 @@
-package com.example.Lab7_MonoApi;
+package com.example.Lab7MonoApi;
 
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.annotations.Expose;

@@ -1,4 +1,4 @@
-package com.example.Lab7_MonoApi;
+package com.example.Lab7MonoApi;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
